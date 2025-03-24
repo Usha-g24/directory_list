@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Products</title>
+    <style>
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50%;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .modal h2 {
+            margin-bottom: 15px;
+        }
+
+        .sections {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .section {
+            width: 30%;
+            background: #f1f1f1;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .box {
+            background: #ddd;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .box:hover {
+            background-color: #ccc;
+        }
+
+        .grade-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .grade-box label {
+            font-size: 19px; 
+            cursor: pointer;
+            background: #ddd;
+            margin: 5px 5px;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: left;
+        }
+        .close {
+            margin-top: 10px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <button onclick="showModal()">+ All Products</button>
+</div>
+
+<div class="modal" id="modal">
+    <h2>All Products</h2>
+    <div class="sections">
+        <div class="section">
+            <h3>Products</h3>
+            <div class="box">Pipes</div>
+            <div class="box">Tubing</div>
+            <div class="box">Pipe Fittings</div>
+            <div class="box">Valves</div>
+            <div class="box">Gaskets</div>
+            <div class="box">Bars</div>
+            <div class="box">Bolts</div>
+        </div>
+        <div class="section">
+            <h3>Material</h3>
+            <div class="box" onclick="updateGrades('Aluminium')">Aluminium</div>
+            <div class="box" onclick="updateGrades('Carbon Steel')">Carbon Steel</div>
+            <div class="box" onclick="updateGrades('Copper Nickel')">Copper Nickel</div>
+            <div class="box" onclick="updateGrades('Duplex Steel')">Duplex Steel</div>
+            <div class="box" onclick="updateGrades('Hastelloy')">Hastelloy</div>
+            <div class="box" onclick="updateGrades('Incoel')">Incoel</div>
+            <div class="box" onclick="updateGrades('Low Temperature Carbon Steel')">Low Temperature Carbon Steel</div>
+        </div>
+        <div class="section">
+            <h3>Grades</h3>
+            <div id="gradesList">
+                Click on Material to see Grades
+            </div>
+        </div>
+    </div>
+    <button class="close" onclick="closeModal()">Submit</button>
+</div>
+
+<script>
+    function showModal() {
+        document.getElementById("modal").style.display = "block";
+    }
+
+    function closeModal() {
+        document.getElementById("modal").style.display = "none";
+    }
+
+    function updateGrades(material) {
+        let grades = {
+            "Aluminium": ["Aluminium F12", "Aluminium F14", "Aluminium 16", "Aluminium 18", "Aluminium 20"],
+            "Carbon Steel": ["CS 1010", "CS 1020", "CS 1030",  "CS 1040", "CS 1050"],
+            "Copper Nickel": ["CuNi 70/30", "CuNi 90/10", "CuNi 95/5"],
+            "Duplex Steel": ["DX 2205", "DX 2507", "DX 2304", "DX 3294"],
+            "Hastelloy": ["Hastelloy C22", "Hastelloy C276", "Hastelloy 765B", "Hastelloy B2", "Hastelloy B3"],
+            "Incoel": ["Incoel 600", "Incoel 625", "Incoel 718", "Incoel 800", "Incoel 825"],
+            "Low Temperature Carbon Steel": ["LTCS A333", "LTCS A350"]
+        };
+
+        let gradesList = document.getElementById("gradesList");
+        gradesList.innerHTML = ""; // Clear existing grades
+
+        if (grades[material]) {
+            grades[material].forEach(grade => {
+                let div = document.createElement("div");
+                div.className = "grade-box";
+
+                let checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.value = grade;
+                checkbox.name = "grades";
+
+                let label = document.createElement("label");
+                label.textContent = grade;
+
+                div.appendChild(checkbox);
+                div.appendChild(label);
+
+                gradesList.appendChild(div);
+            });
+        }
+    }
+</script>
+
+</body>
+</html>
